@@ -21,7 +21,6 @@ describe Hungrytable::Restaurant do
     it 'should return some JSON given a valid restaurant_id' do
       VCR.use_cassette('restaurant_get_details') do
         response = @restaurant.get_details(82591)
-        binding.pry
         response.must_be_kind_of Hash
       end
     end
