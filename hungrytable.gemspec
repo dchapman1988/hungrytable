@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   # s.add_runtime_dependency "rest-client"
 
   s.add_runtime_dependency 'oauth', '~> 0.4.5'
+  s.add_runtime_dependency 'json', '~> 1.7.1'
 
   s.add_development_dependency "minitest"
   s.add_development_dependency "minitest-reporters"
@@ -31,5 +32,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov-rcov'
   s.add_development_dependency 'rcov', '0.9.11'
   s.add_development_dependency 'pry'
+  s.add_development_dependency 'vcr', '~> 2.1.1'
 end
 
