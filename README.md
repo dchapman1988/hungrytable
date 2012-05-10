@@ -1,6 +1,6 @@
 # Hungrytable
 
-TODO: Write a gem description
+The purpose of this gem is to interact with the [OpenTable](http://www.opentable.com) REST API.
 
 ## Installation
 
@@ -18,7 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You need to set some environment variable for this gem to work properly:
+
+Observe:
+
+    # In ~/.bashrc
+    export OT_PARTNER_ID=<YOUR OPENTABLE PARTNER ID>
+    export OT_PARTNER_AUTH=<YOUR OPENTABLE PARTNER AUTH> # For XML feed only...
+    export OT_OAUTH_KEY=<YOUR OPENTABLE OAUTH KEY>
+    export OT_OAUTH_SECRET=<YOUR OPENTABLE OAUTH SECRET KEY>
+
 
 ## Contributing
 
