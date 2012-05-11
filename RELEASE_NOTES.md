@@ -1,4 +1,4 @@
-# Hungrytable - Official Ruby API Client for the OpenTable REST API
+# Hungrytable - Ruby API Client for the OpenTable REST API
 
 ## v0.0.1 (05/11/2012)
 
