@@ -15,6 +15,8 @@ module Hungrytable
         oauth_version: '1.0',
         http_method: :get
       )
+
+      @consumer.http.set_debug_output($stderr)
       
       @access_token = OAuth::AccessToken.new(@consumer)
     end
