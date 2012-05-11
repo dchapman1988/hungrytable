@@ -28,7 +28,6 @@ Observe:
     export OT_OAUTH_KEY=<YOUR OPENTABLE OAUTH KEY>
     export OT_OAUTH_SECRET=<YOUR OPENTABLE OAUTH SECRET KEY>
 
-
 ## Contributing
 
 1. Fork it
