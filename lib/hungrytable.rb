@@ -1,3 +1,4 @@
+require "uri"
 require "json"
 require "hungrytable/base"
 require "hungrytable/version"

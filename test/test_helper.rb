@@ -8,7 +8,6 @@ require 'minitest/reporters'
 
 require 'ostruct'
 require 'pry'
-require 'vcr'
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
@@ -22,8 +21,3 @@ end
 
 # Load the app
 require File.expand_path("../../lib/hungrytable.rb", __FILE__)
-
-# Record API Results via VCR
-VCR.configure do |c|
-  c.cassette_library_dir = 'vcr_cassettes'
-end
