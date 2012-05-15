@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Status: 200
+Vary: Accept-Encoding
+Content-Type: application/json
+
+{ "RestaurantDetailsResults": {"ns:Address": null, "ns:City": "799 Market Street", "ns:ErrorID": "0", "ns:ErrorMessage": null, "ns:ImageLink": null, "ns:Latitude": null, "ns:Longitude": null, "ns:MenuURL": null, "ns:MetroID": "1", "ns:MetroName": "Demoland", "ns:NeighborhoodName": "Devland", "ns:Parking": "No", "ns:ParkingDetails": null, "ns:Phone": "4157897485", "ns:PostalCode": "94103", "ns:PriceRange": "$30 and under", "ns:PrimaryFoodType": "American", "ns:ReserveUrl": "1759B23C", "ns:RestaurantDescription": "Coming Soon!", "ns:RestaurantID": "82591", "ns:RestaurantName": "OTConnect-Partner-Rest1", "ns:State": "CA", "ns:Url": null, "xmlns:ns": "com.opentable.webservices.v2" }}

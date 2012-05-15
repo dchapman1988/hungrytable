@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Status: 200
+Vary: Accept-Encoding
+Content-Type: application/json
+
+{"SearchResults": {"ns:CuisineType": "American", "ns:EarlyPoints": "100", "ns:EarlySecurityID": "1113043844", "ns:EarlyTime": "5/16/2012 1:45:00 PM", "ns:ErrorID": "0", "ns:ErrorMessage": null, "ns:ExactPoints": "100", "ns:ExactSecurityID": "1113043836", "ns:ExactTime": "5/16/2012 2:00:00 PM", "ns:ImageExists": "0", "ns:Latitude": null, "ns:Longitude": null, "ns:NeighborhoodName": "Devland", "ns:Price": "$$", "ns:RestaurantID": "82591", "ns:RestaurantName": "OTConnect-Partner-Rest1", "ns:ResultsKey": "z0OlOTkH2NbY%2bq7bjf7Lxw%3d%3d", "xmlns:ns": "com.opentable.webservices.v2" }}
+

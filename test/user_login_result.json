@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Status: 200
+Vary: Accept-Encoding
+Content-Type: application/json
+
+{ "LoginResults": {"ns:ErrorID": "303", "ns:ErrorMessage": "Invalid User Email. Please re-enter your UserEmail.", "ns:IsAdmin": "0", "xmlns:ns": "com.opentable.webservices.v2" }}

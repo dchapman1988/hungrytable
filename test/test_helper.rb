@@ -8,6 +8,9 @@ require 'minitest/reporters'
 
 require 'ostruct'
 require 'pry'
+require 'webmock'
+include WebMock::API
+
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }

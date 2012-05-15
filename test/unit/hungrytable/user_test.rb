@@ -15,6 +15,7 @@ describe Hungrytable::User do
 
   describe 'users' do
     before do
+      stub_request(:get, /.*secure.opentable.com\/api\/otapi_v2.ashx\/user.*/).to_return(File.new('./test/user_login_result.json'), :status => 200)
       @user = subject.new
     end
     it 'should be able to login' do
