@@ -28,6 +28,25 @@ Observe:
     export OT_OAUTH_KEY=<YOUR OPENTABLE OAUTH KEY>
     export OT_OAUTH_SECRET=<YOUR OPENTABLE OAUTH SECRET KEY>
 
+## Example Run
+
+    $ restaurant = Hungrytable::Restaurant.new(82591)  
+
+    > #<Hungrytable::Restaurant:0x0000000032e4098 ... >  
+
+    $ search = Hungrytable::RestaurantSearch.new(restaurant, {date:
+        5.days.from_now, party_size: 3})  
+
+    > #<Hungrytable::RestaurantSearch:0x00000003143388 ... >
+
+    $ slotlock = Hungrytable::RestaurantSlotlock.new(search)
+
+    > #<Hungrytable::RestaurantSlotlock:0x00000002973a68 ... >
+
+    $ reservation = Hungrytable::ReservationMake.new(slotlock, {email:
+        'foo@bar.com', firstname: 'Mike', lastname: 'Jones', phone:
+        '2813308004'})
+
 
 ## Contributing
 
