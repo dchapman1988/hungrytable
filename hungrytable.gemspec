@@ -22,8 +22,9 @@ Gem::Specification.new do |s|
   # s.add_development_dependency "rspec"
   # s.add_runtime_dependency "rest-client"
 
-  s.add_runtime_dependency 'oauth', '~> 0.4.5'
   s.add_runtime_dependency 'json', '~> 1.7.1'
+  s.add_runtime_dependency 'active_support'
+  s.add_runtime_dependency 'i18n'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'minitest'
