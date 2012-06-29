@@ -25,15 +25,12 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'json', '~> 1.7.1'
   s.add_runtime_dependency 'active_support'
   s.add_runtime_dependency 'i18n'
+  s.add_runtime_dependency 'curb'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'minitest-reporters'
-  s.add_development_dependency 'guard-minitest', '0.5.0.rc1'
-  s.add_development_dependency 'libnotify'
-  s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'simplecov-rcov'
-  s.add_development_dependency 'rcov', '0.9.11'
+  s.add_development_dependency 'mocha'
   s.add_development_dependency 'pry'
 end
 

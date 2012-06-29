@@ -20,7 +20,7 @@ module Hungrytable
 
     private
     def config_error var
-      raise "ENV variable #{var} must be set."
+      raise HungrytableError, "ENV variable #{var} must be set."
     end
   end
 end

@@ -1,11 +1,13 @@
 module Hungrytable
   class ReservationCancel
+    include RequestExtensions
+
     attr_reader :opts
 
     def initialize opts={}
       @opts = opts
       ensure_required_opts
-      handle_initial_request
+      @requester = opts[:requester] || GetRequest
     end
 
     def successful?
@@ -13,18 +15,16 @@ module Hungrytable
     end
 
     private
-    def handle_initial_request
-      @initial_request = GetRequest.new("/reservation/?pid=#{Config.partner_id}&rid=#{opts[:restaurant_id]}&conf=#{opts[:confirmation_number]}&email=#{CGI.escape(opts[:email_address])}")
+    def request_uri
+      "/reservation/?pid=#{Config.partner_id}&rid=#{opts[:restaurant_id]}&conf=#{opts[:confirmation_number]}&email=#{CGI.escape(opts[:email_address])}"
     end
 
     def details
-      @initial_request.parsed_response["Results"]
+      request.parsed_response["Results"]
     end
 
-    def ensure_required_opts
-      [:email_address, :confirmation_number, :restaurant_id].each do |key|
-        raise ArgumentError, "options must include a value for #{key}" unless opts.has_key?(key)
-      end
+    def required_opts
+      %w(email_address confirmation_number restaurant_id).map(&:to_sym)
     end
   end
 end

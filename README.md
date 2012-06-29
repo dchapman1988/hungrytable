@@ -34,8 +34,7 @@ Observe:
 
     > #<Hungrytable::Restaurant:0x0000000032e4098 ... >  
 
-    $ search = Hungrytable::RestaurantSearch.new(restaurant, {date:
-        5.days.from_now, party_size: 3})  
+    $ search = Hungrytable::RestaurantSearch.new(restaurant, {date_time: 5.days.from_now, party_size: 3})  
 
     > #<Hungrytable::RestaurantSearch:0x00000003143388 ... >
 
@@ -43,9 +42,7 @@ Observe:
 
     > #<Hungrytable::RestaurantSlotlock:0x00000002973a68 ... >
 
-    $ reservation = Hungrytable::ReservationMake.new(slotlock, {email:
-        'foo@bar.com', firstname: 'Mike', lastname: 'Jones', phone:
-        '2813308004'})
+    $ reservation = Hungrytable::ReservationMake.new(slotlock, {email_address: 'foo@bar.com', firstname: 'Mike', lastname: 'Jones', phone: '2813308004'})
 
 
 ## Contributing

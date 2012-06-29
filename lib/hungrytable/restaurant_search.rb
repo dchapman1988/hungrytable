@@ -1,15 +1,14 @@
 module Hungrytable
   class RestaurantSearch
+    include RequestExtensions
 
-    attr_reader :restaurant, :date, :party_size
+    attr_reader :restaurant, :opts
 
-    def initialize restaurant, options
-      raise ArgumentError, "options must include a value for date" unless options.has_key?(:date)
-      raise ArgumentError, "options must include a value for party size" unless options.has_key?(:party_size)
+    def initialize restaurant, opts={}
+      @opts = opts
+      ensure_required_opts
+      @requester  = opts[:requester] || GetRequest
       @restaurant = restaurant
-      @date       = options[:date]
-      @party_size = options[:party_size]
-      handle_initial_request
     end
 
     def valid?
@@ -52,17 +51,25 @@ module Hungrytable
       nil
     end
 
-    private
-    def encoded_date
-      URI.encode(date.strftime("%m/%d/%Y %I:%M %p"), /[^a-z0-9\-\.\_\~]/i)
+    def party_size
+      opts[:party_size]
     end
 
-    def handle_initial_request
-      @initial_request = GetRequest.new("/table/?pid=#{Config.partner_id}&rid=#{restaurant.id}&dt=#{encoded_date}&ps=#{party_size}")
+    private
+    def required_opts
+      %w(date_time party_size).map(&:to_sym)
+    end
+
+    def encoded_date_time
+      URI.encode(opts[:date_time].strftime("%m/%d/%Y %I:%M %p"), /[^a-z0-9\-\.\_\~]/i)
+    end
+
+    def request_uri
+      "/table/?pid=#{Config.partner_id}&rid=#{restaurant.id}&dt=#{encoded_date_time}&ps=#{party_size}"
     end
 
     def details
-      @initial_request.parsed_response["SearchResults"]
+      request.parsed_response["SearchResults"]
     end
 
   end

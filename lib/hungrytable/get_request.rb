@@ -6,7 +6,7 @@ module Hungrytable
     end
 
     def make_request
-      Curl.get(@uri) do |curl|
+      Curl::Easy.perform(@uri) do |curl|
         curl.headers['Authorization'] = auth_header
       end
     end

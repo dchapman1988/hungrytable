@@ -1,9 +1,10 @@
 module Hungrytable
   class Restaurant
+    include RequestExtensions
 
-    def initialize restaurant_id
+    def initialize restaurant_id, opts={}
+      @requester     = opts[:requester] || GetRequest
       @restaurant_id = restaurant_id
-      handle_initial_request
     end
 
     def id
@@ -42,15 +43,15 @@ module Hungrytable
       super
     end
 
-
     private
-    def handle_initial_request
-      @initial_request = GetRequest.new("/restaurant/?pid=#{Config.partner_id}&rid=#{id}")
+
+    def request_uri
+      "/restaurant/?pid=#{Config.partner_id}&rid=#{id}"
     end
 
     # @return [Hash]
     def details
-      @initial_request.parsed_response["RestaurantDetailsResults"]
+      request.parsed_response["RestaurantDetailsResults"]
     end
 
   end

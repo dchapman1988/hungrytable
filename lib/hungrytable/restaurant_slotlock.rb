@@ -1,11 +1,12 @@
 module Hungrytable
   class RestaurantSlotlock
+    include RequestExtensions
 
     attr_reader :restaurant_search
 
-    def initialize restaurant_search, opts={}
+    def initialize restaurant_search, requester=PostRequest
       @restaurant_search = restaurant_search
-      handle_initial_request
+      @requester         = requester
     end
 
     def successful?
@@ -17,18 +18,6 @@ module Hungrytable
       details["ns:SlotLockID"]
     end
 
-    def handle_initial_request
-      @initial_request = PostRequest.new("/slotlock/?pid=#{Config.partner_id}&st=0", params)
-    end
-
-    def restaurant
-      restaurant_search.restaurant
-    end
-
-    def details
-      @initial_request.parsed_response["SlotLockResults"]
-    end
-
     def params
       {
         'RID'            => restaurant.id,
@@ -38,5 +27,19 @@ module Hungrytable
         'resultskey'     => restaurant_search.results_key
       }
     end
+
+    private
+    def request_uri
+      "/slotlock/?pid=#{Config.partner_id}&st=0"
+    end
+
+    def restaurant
+      restaurant_search.restaurant
+    end
+
+    def details
+      request.parsed_response["SlotLockResults"]
+    end
+
   end
 end

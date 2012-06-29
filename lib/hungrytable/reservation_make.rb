@@ -1,12 +1,14 @@
 module Hungrytable
   class ReservationMake
+    include RequestExtensions
+
     attr_reader :restaurant_slotlock, :opts
 
     def initialize restaurant_slotlock, opts={}
       @opts = opts
       ensure_required_opts
+      @requester           = opts[:requester] || PostRequest
       @restaurant_slotlock = restaurant_slotlock
-      handle_initial_request
     end
 
     def successful?
@@ -19,10 +21,8 @@ module Hungrytable
     end
 
     private
-    def ensure_required_opts
-      [:email_address, :firstname, :lastname, :phone].each do |key|
-        raise ArgumentError, "options must include a value for #{key}" unless opts.has_key?(key)
-      end
+    def required_opts
+      %w(email_address firstname lastname phone).map(&:to_sym)
     end
 
     def default_options
@@ -39,12 +39,12 @@ module Hungrytable
       default_options.merge(opts)
     end
 
-    def handle_initial_request
-      @initial_request = PostRequest.new("/reservation/?pid=#{Config.partner_id}&st=0", params)
+    def request_uri
+      "/reservation/?pid=#{Config.partner_id}&st=0"
     end
 
     def details
-      @initial_request.parsed_response["MakeResults"]
+      request.parsed_response["MakeResults"]
     end
 
   end
