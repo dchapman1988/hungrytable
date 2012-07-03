@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   # s.add_runtime_dependency "rest-client"
 
   s.add_runtime_dependency 'json', '~> 1.7.1'
-  s.add_runtime_dependency 'active_support'
+  s.add_runtime_dependency 'activesupport'
   s.add_runtime_dependency 'i18n'
   s.add_runtime_dependency 'curb'
 
