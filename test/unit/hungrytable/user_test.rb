@@ -1,3 +1,4 @@
+=begin
 require 'test_helper'
 
 describe Hungrytable::User do
@@ -24,3 +25,4 @@ describe Hungrytable::User do
     end
   end
 end
+=end
