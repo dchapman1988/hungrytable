@@ -1,16 +1,58 @@
 module Hungrytable
-  class Restaurant < ::Hungrytable::Base
-    def get_details(restaurant_id)
-      uri = "/restaurant/?pid=#{ENV['OT_PARTNER_ID']}&rid=#{restaurant_id}"
-      response = @access_token.get(uri)
-      parse_json(response.body)
+  class Restaurant
+    include RequestExtensions
+
+    def initialize restaurant_id, opts={}
+      @requester     = opts[:requester] || GetRequest
+      @restaurant_id = restaurant_id
     end
 
-    def search(options)
-      parse_uri_options(:restaurant_id, :date_time, :party_size, options)
-      uri = "/table/?pid=#{ENV['OT_PARTNER_ID']}&st=0&rid=#{@restaurant_id}&dt=#{@date_time}&ps=#{@party_size}"
-      response = @access_token.get(uri)
-      parse_json(response.body)
+    def id
+      @restaurant_id
     end
+
+    def valid?
+      error_ID == "0"
+    end
+
+    def method_missing meth, *args, &blk
+      if %w(
+            address
+            city
+            error_ID
+            error_message
+            image_link
+            latitude
+            longitude
+            metro_name
+            neighborhood_name
+            parking
+            parking_details
+            phone
+            postal_code
+            price_range
+            primary_food_type
+            restaurant_description
+            restaurant_ID
+            restaurant_name
+            state
+            url
+          ).map(&:to_sym).include?(meth)
+        return details["ns:#{meth.to_s.camelize}"]
+      end
+      super
+    end
+
+    private
+
+    def request_uri
+      "/restaurant/?pid=#{Config.partner_id}&rid=#{id}"
+    end
+
+    # @return [Hash]
+    def details
+      request.parsed_response["RestaurantDetailsResults"]
+    end
+
   end
 end

@@ -1,8 +1,3 @@
-# Set up simplecov
-require 'simplecov'
-require 'simplecov-rcov'
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-
 require 'minitest/autorun'
 require 'minitest/reporters'
 
@@ -22,5 +17,5 @@ if ENV['JENKINS']
   MiniTest::Unit.runner.reporters << MiniTest::Reporters::JUnitReporter.new
 end
 
-# Load the app
+require 'mocha'
 require File.expand_path("../../lib/hungrytable.rb", __FILE__)
