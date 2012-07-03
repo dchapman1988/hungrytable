@@ -5,8 +5,8 @@ require "hungrytable/version"
 Gem::Specification.new do |s|
   s.name        = "hungrytable"
   s.version     = Hungrytable::VERSION
-  s.authors     = ["David Chapman"]
-  s.email       = ["david@isotope11.com"]
+  s.authors     = ["David Chapman", "Nicholas Fine"]
+  s.email       = ["david@isotope11.com", 'nick@ndfine.com']
   s.homepage    = "http://www.isotope11.com/"
   s.summary     = %q{Gem to interact with OpenTable's REST API}
   s.description = %q{Gem to interact with OpenTable's REST API}
