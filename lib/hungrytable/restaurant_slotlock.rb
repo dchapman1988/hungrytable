@@ -13,6 +13,10 @@ module Hungrytable
       details["ns:ErrorID"] == "0"
     end
 
+    def errors
+      details["ns:ErrorMessage"]
+    end
+
     def slotlock_id
       return nil unless successful?
       details["ns:SlotLockID"]
