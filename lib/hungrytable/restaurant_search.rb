@@ -31,6 +31,7 @@ module Hungrytable
             neighborhood_name
             restaurant_name
             results_key
+            no_times_message
           ).map(&:to_sym).include?(meth)
         return details["ns:#{meth.to_s.camelize.gsub("Id","ID")}"]
       end
