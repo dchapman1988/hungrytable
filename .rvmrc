@@ -1,1 +1,1 @@
-rvm 1.9.2@hungrytable --create
+rvm ruby-1.9.3-p385@hungrytable --create

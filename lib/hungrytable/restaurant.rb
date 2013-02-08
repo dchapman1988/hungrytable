@@ -38,7 +38,7 @@ module Hungrytable
             state
             url
           ).map(&:to_sym).include?(meth)
-        return details["ns:#{meth.to_s.camelize}"]
+        return details["ns:#{meth.to_s.camelize.gsub("Id","ID")}"]
       end
       super
     end
