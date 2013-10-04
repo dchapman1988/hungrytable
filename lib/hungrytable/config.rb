@@ -15,7 +15,7 @@ module Hungrytable
     end
 
     def base_url
-      'https://secure.opentable.com/api/otapi_v2.ashx'
+      'https://secure.opentable.com/api/otapi_v3.ashx'
     end
 
     private
