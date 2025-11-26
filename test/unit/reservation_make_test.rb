@@ -206,6 +206,21 @@ class ReservationMakeTest < Minitest::Test
     end
   end
 
+  def test_params_filters_out_internal_options
+    # Verify that internal options like :requester are not sent to the API
+    opts_with_requester = @valid_opts.merge(requester: Minitest::Mock.new)
+    reservation = Hungrytable::ReservationMake.new(@slotlock, opts_with_requester)
+    params = reservation.send(:params)
+
+    # :requester should not be in the params sent to API
+    refute_includes params.keys, 'requester'
+    refute_includes params.keys, :requester
+
+    # Valid options should still be present
+    assert_equal 'test@example.com', params['email_address']
+    assert_equal 'John', params['firstname']
+  end
+
   # Request URI tests
   def test_request_uri_includes_partner_id
     reservation = Hungrytable::ReservationMake.new(@slotlock, @valid_opts)

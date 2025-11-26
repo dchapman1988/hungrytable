@@ -51,8 +51,12 @@ module Hungrytable
     end
 
     def params
+      # Filter out internal options (like :requester) before converting to API parameters
+      internal_opts = %i[requester]
+      api_opts = opts.reject { |key, _| internal_opts.include?(key) }
+      
       # Convert symbol keys to strings for API
-      user_opts = opts.transform_keys(&:to_s)
+      user_opts = api_opts.transform_keys(&:to_s)
       default_options.merge(user_opts)
     end
 
