@@ -1,37 +1,33 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "hungrytable/version"
+# frozen_string_literal: true
+
+require_relative 'lib/hungrytable/version'
 
 Gem::Specification.new do |s|
-  s.name        = "hungrytable"
+  s.name        = 'hungrytable'
   s.version     = Hungrytable::VERSION
-  s.authors     = ["David Chapman", "Nicholas Fine"]
-  s.email       = ["david@isotope11.com", 'nicholas.fine@gmail.com']
-  s.homepage    = "http://www.isotope11.com/"
-  s.summary     = %q{Gem to interact with OpenTable's REST API}
-  s.description = %q{Gem to interact with OpenTable's REST API}
+  s.authors     = ['David Chapman']
+  s.email       = ['dchapman1988@gmail.com']
+  s.homepage    = 'https://github.com/dchapman1988/hungrytable'
+  s.summary     = 'Ruby client for the OpenTable REST API'
+  s.description = 'A Ruby gem providing a clean, object-oriented interface to interact with the OpenTable REST API ' \
+                  'for restaurant reservations'
+  s.license     = 'MIT'
 
-  s.rubyforge_project = "hungrytable"
+  s.required_ruby_version = '>= 3.0.0'
+  s.metadata = {
+    'bug_tracker_uri' => 'https://github.com/dchapman1988/hungrytable/issues',
+    'changelog_uri' => 'https://github.com/dchapman1988/hungrytable/blob/master/RELEASE_NOTES.md',
+    'source_code_uri' => 'https://github.com/dchapman1988/hungrytable',
+    'rubygems_mfa_required' => 'true'
+  }
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  s.files = Dir['lib/**/*', 'LICENSE', 'README.md', 'RELEASE_NOTES.md']
+  s.require_paths = ['lib']
 
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  # Runtime dependencies - modernized versions
+  s.add_dependency 'activesupport', '>= 6.0', '< 8.0'
+  s.add_dependency 'http', '~> 5.0' # Modern HTTP client replacing curb
+  s.add_dependency 'oauth', '~> 1.1' # Dedicated OAuth library
 
-  s.add_runtime_dependency 'json', '~> 1.7.1'
-  s.add_runtime_dependency 'activesupport'
-  s.add_runtime_dependency 'i18n'
-  s.add_runtime_dependency 'curb'
-
-  s.add_development_dependency 'rake'
-  s.add_development_dependency 'minitest'
-  s.add_development_dependency 'minitest-reporters'
-  s.add_development_dependency 'mocha'
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'webmock'
+  # Development dependencies are specified in Gemfile
 end
-

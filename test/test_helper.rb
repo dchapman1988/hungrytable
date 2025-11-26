@@ -1,18 +1,34 @@
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+
 require 'minitest/autorun'
 require 'minitest/reporters'
+require 'mocha/minitest'
+require 'webmock/minitest'
+require 'hungrytable'
 
-require 'ostruct'
-require 'pry'
-require 'webmock'
-include WebMock::API
+# Use spec reporter for better output
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
+# Disable real HTTP requests in tests
+WebMock.disable_net_connect!(allow_localhost: true)
 
-# Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+# Test helper methods
+module TestHelpers
+  def setup_config
+    Hungrytable::Config.reset!
+    Hungrytable::Config.partner_id = 'test_partner_id'
+    Hungrytable::Config.oauth_key = 'test_oauth_key'
+    Hungrytable::Config.oauth_secret = 'test_oauth_secret'
+  end
 
-# Set up minitest
-MiniTest::Unit.runner = MiniTest::SuiteRunner.new
-MiniTest::Unit.runner.reporters << MiniTest::Reporters::SpecReporter.new
+  def teardown_config
+    Hungrytable::Config.reset!
+  end
+end
 
-require 'mocha'
-require File.expand_path("../../lib/hungrytable.rb", __FILE__)
+# Include helpers in all tests
+class Minitest::Test
+  include TestHelpers
+end
