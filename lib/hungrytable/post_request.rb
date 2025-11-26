@@ -16,7 +16,7 @@ module Hungrytable
     end
 
     def auth_header
-      RequestHeader.new(:post, uri, {}, {}).to_s
+      RequestHeader.new(:post, uri, params, {}).to_s
     end
   end
 end
