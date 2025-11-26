@@ -25,8 +25,16 @@ jobs:
     - name: Install dependencies
       run: bundle install
 
-    - name: Run tests
+    - name: Run tests with coverage
       run: bundle exec rake test
+
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      if: matrix.ruby-version == '3.3'
+      with:
+        name: coverage-report
+        path: coverage/
+        retention-days: 7
 
     - name: Run RuboCop
       run: bundle exec rubocop
