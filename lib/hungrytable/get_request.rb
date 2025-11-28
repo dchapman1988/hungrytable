@@ -3,10 +3,14 @@
 module Hungrytable
   # HTTP GET request handler
   class GetRequest < Request
+    # Default timeout for HTTP requests (in seconds)
+    DEFAULT_TIMEOUT = 30
+
     private
 
     def make_request
       response = HTTP
+                 .timeout(DEFAULT_TIMEOUT)
                  .headers('Authorization' => auth_header)
                  .get(uri)
 

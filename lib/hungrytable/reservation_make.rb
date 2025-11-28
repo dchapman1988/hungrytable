@@ -17,7 +17,7 @@ module Hungrytable
     # Check if the reservation was successful
     # @return [Boolean] true if no errors
     def successful?
-      details['ns:ErrorID'] == '0'
+      details['ns:ErrorID'].to_s == '0'
     end
 
     # Get the confirmation number for the reservation

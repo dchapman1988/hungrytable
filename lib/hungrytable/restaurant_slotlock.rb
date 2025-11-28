@@ -10,12 +10,13 @@ module Hungrytable
     def initialize(restaurant_search, requester = PostRequest)
       @restaurant_search = restaurant_search
       @requester = requester
+      validate_search_has_results
     end
 
     # Check if the slotlock was successful
     # @return [Boolean] true if no errors
     def successful?
-      details['ns:ErrorID'] == '0'
+      details['ns:ErrorID'].to_s == '0'
     end
 
     # Get error messages if slotlock failed
@@ -57,6 +58,14 @@ module Hungrytable
     # @return [Hash] slotlock results from API response
     def details
       @details ||= request.parsed_response['SlotLockResults'] || {}
+    end
+
+    def validate_search_has_results
+      if restaurant_search.ideal_security_id.nil? ||
+         restaurant_search.ideal_time.nil? ||
+         restaurant_search.results_key.nil?
+        raise ValidationError, 'Cannot create slotlock: no available times found in restaurant search'
+      end
     end
   end
 end

@@ -3,10 +3,14 @@
 module Hungrytable
   # HTTP POST request handler
   class PostRequest < Request
+    # Default timeout for HTTP requests (in seconds)
+    DEFAULT_TIMEOUT = 30
+
     private
 
     def make_request
       response = HTTP
+                 .timeout(DEFAULT_TIMEOUT)
                  .headers('Authorization' => auth_header)
                  .post(uri, form: params)
 

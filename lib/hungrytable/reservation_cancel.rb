@@ -16,7 +16,7 @@ module Hungrytable
     # Check if the cancellation was successful
     # @return [Boolean] true if no errors
     def successful?
-      details['ns:ErrorID'] == '0'
+      details['ns:ErrorID'].to_s == '0'
     end
 
     # Get error messages if cancellation failed
@@ -29,7 +29,7 @@ module Hungrytable
 
     def request_uri
       "/reservation/?pid=#{Config.partner_id}&rid=#{opts[:restaurant_id]}&" \
-        "conf=#{opts[:confirmation_number]}&email=#{CGI.escape(opts[:email_address])}"
+        "conf=#{CGI.escape(opts[:confirmation_number].to_s)}&email=#{CGI.escape(opts[:email_address])}"
     end
 
     # @return [Hash] cancellation results from API response

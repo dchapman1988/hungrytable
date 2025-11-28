@@ -29,6 +29,8 @@ module Hungrytable
     def initialize(restaurant, opts = {})
       @opts = opts
       ensure_required_opts
+      validate_date_time_type
+      validate_party_size
       @requester = opts[:requester] || GetRequest
       @restaurant = restaurant
     end
@@ -36,7 +38,7 @@ module Hungrytable
     # Check if the search was valid
     # @return [Boolean] true if no errors
     def valid?
-      error_ID == '0'
+      error_ID.to_s == '0'
     end
 
     # Dynamically define getter methods for all attributes
@@ -84,6 +86,21 @@ module Hungrytable
     # @return [Hash] search results from API response
     def details
       @details ||= request.parsed_response['SearchResults'] || {}
+    end
+
+    def validate_date_time_type
+      return if opts[:date_time].respond_to?(:strftime)
+
+      raise ValidationError,
+            "date_time must be a Time or DateTime object, got #{opts[:date_time].class}"
+    end
+
+    def validate_party_size
+      ps = opts[:party_size]
+      return if ps.is_a?(Integer) && ps.positive? && ps <= 20
+
+      raise ValidationError,
+            "party_size must be a positive integer between 1 and 20, got #{ps.inspect}"
     end
   end
 end

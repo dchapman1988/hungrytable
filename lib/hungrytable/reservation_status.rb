@@ -15,7 +15,7 @@ module Hungrytable
 
     # @return [Boolean] true if the status request was successful
     def successful?
-      details['ns:ErrorID'] == '0'
+      details['ns:ErrorID'].to_s == '0'
     end
 
     # @return [String] the current status of the reservation
@@ -41,7 +41,8 @@ module Hungrytable
     private
 
     def request_uri
-      "/reservationstatus/?pid=#{Config.partner_id}&rid=#{opts[:restaurant_id]}&conf=#{opts[:confirmation_number]}"
+      "/reservationstatus/?pid=#{Config.partner_id}&rid=#{opts[:restaurant_id]}&" \
+        "conf=#{CGI.escape(opts[:confirmation_number].to_s)}"
     end
 
     def details

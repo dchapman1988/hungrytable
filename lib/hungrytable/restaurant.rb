@@ -44,7 +44,7 @@ module Hungrytable
     # Check if the restaurant query was valid
     # @return [Boolean] true if no errors
     def valid?
-      error_ID == '0'
+      error_ID.to_s == '0'
     end
 
     # Dynamically define getter methods for all attributes
