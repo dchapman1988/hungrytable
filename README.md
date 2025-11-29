@@ -1,12 +1,10 @@
 # Hungrytable
 
 [![CI](https://github.com/dchapman1988/hungrytable/actions/workflows/ci.yml/badge.svg)](https://github.com/dchapman1988/hungrytable/actions/workflows/ci.yml)
-[![Code Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)](https://github.com/dchapman1988/hungrytable)
+[![codecov](https://codecov.io/gh/dchapman1988/hungrytable/graph/badge.svg)](https://codecov.io/gh/dchapman1988/hungrytable)
 [![Ruby Version](https://img.shields.io/badge/ruby-3.0%2B-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/hungrytable.svg)](https://badge.fury.io/rb/hungrytable)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Maintainability](https://api.codeclimate.com/v1/badges/maintainability)](https://codeclimate.com/github/dchapman1988/hungrytable)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/test_coverage)](https://codeclimate.com/github/dchapman1988/hungrytable)
 
 Ruby client for the OpenTable REST API. Supports restaurant search, availability lookup, reservations, and booking management.
 

@@ -3,7 +3,15 @@
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 
 require 'simplecov'
-SimpleCov.start
+require 'simplecov-cobertura'
+
+SimpleCov.start do
+  add_filter '/test/'
+
+  if ENV['CI']
+    formatter SimpleCov::Formatter::CoberturaFormatter
+  end
+end
 
 require 'minitest/autorun'
 require 'minitest/reporters'
