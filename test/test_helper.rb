@@ -8,9 +8,7 @@ require 'simplecov-cobertura'
 SimpleCov.start do
   add_filter '/test/'
 
-  if ENV['CI']
-    formatter SimpleCov::Formatter::CoberturaFormatter
-  end
+  formatter SimpleCov::Formatter::CoberturaFormatter if ENV['CI']
 end
 
 require 'minitest/autorun'
