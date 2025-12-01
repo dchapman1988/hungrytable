@@ -317,10 +317,14 @@ Please ensure:
 
 The gem is available as open source under the terms of the [MIT License](LICENSE).
 
-## Authors
+## Maintainers
 
+**Active:**
 - David Chapman ([@dchapman1988](https://github.com/dchapman1988))
-- Nicholas Fine
+
+**Inactive:**
+- Nicholas Fine ([@yrgoldteeth](https://github.com/yrgoldteeth))
+- Ryan T. Hosford ([@rthbound](https://github.com/rthbound))
 
 ## Changelog
 
