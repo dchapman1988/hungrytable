@@ -33,7 +33,7 @@ jobs:
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage/coverage.xml
+        files: ./coverage/lcov.info
         fail_ci_if_error: true
 
     - name: Run RuboCop

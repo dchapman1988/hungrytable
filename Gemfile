@@ -17,6 +17,6 @@ group :development, :test do
   gem 'rubocop-minitest', '~> 0.35'
   gem 'rubocop-rake', '~> 0.6'
   gem 'simplecov', '~> 0.22.0', require: false
-  gem 'simplecov-cobertura', '~> 2.1', require: false
+  gem 'simplecov-lcov', require: false
   gem 'webmock', '~> 3.20'
 end
