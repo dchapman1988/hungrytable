@@ -1,28 +1,43 @@
+# frozen_string_literal: true
+
 module Hungrytable
+  # Makes a new restaurant reservation
   class ReservationMake
     include RequestExtensions
 
     attr_reader :restaurant_slotlock, :opts
 
-    def initialize restaurant_slotlock, opts={}
+    def initialize(restaurant_slotlock, opts = {})
       @opts = opts
       ensure_required_opts
-      @requester           = opts[:requester] || PostRequest
+      @requester = opts[:requester] || PostRequest
       @restaurant_slotlock = restaurant_slotlock
     end
 
+    # Check if the reservation was successful
+    # @return [Boolean] true if no errors
     def successful?
-      details["ns:ErrorID"] == "0"
+      details['ns:ErrorID'].to_s == '0'
     end
 
+    # Get the confirmation number for the reservation
+    # @return [String, nil] confirmation number or nil if unsuccessful
     def confirmation_number
       return nil unless successful?
-      details["ns:ConfirmationNumber"]
+
+      details['ns:ConfirmationNumber']
+    end
+
+    # Get error messages if reservation failed
+    # @return [String, nil] error message or nil
+    def error_message
+      details['ns:ErrorMessage']
     end
 
     private
+
     def required_opts
-      %w(email_address firstname lastname phone).map(&:to_sym)
+      %i[email_address firstname lastname phone]
     end
 
     def default_options
@@ -30,22 +45,28 @@ module Hungrytable
         'OTannouncementOption' => '0',
         'RestaurantEmailOption' => '0',
         'firsttimediner' => '0',
-        'specialinstructions' => 'Have a great time',
+        'specialinstructions' => opts[:specialinstructions] || '',
         'slotlockid' => restaurant_slotlock.slotlock_id
       }.merge(restaurant_slotlock.params)
     end
 
     def params
-      default_options.merge(opts)
+      # Filter out internal options (like :requester) before converting to API parameters
+      internal_opts = %i[requester]
+      api_opts = opts.except(*internal_opts)
+
+      # Convert symbol keys to strings for API
+      user_opts = api_opts.transform_keys(&:to_s)
+      default_options.merge(user_opts)
     end
 
     def request_uri
       "/reservation/?pid=#{Config.partner_id}&st=0"
     end
 
+    # @return [Hash] reservation results from API response
     def details
-      request.parsed_response["MakeResults"]
+      @details ||= request.parsed_response['MakeResults'] || {}
     end
-
   end
 end

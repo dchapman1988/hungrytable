@@ -1,15 +1,26 @@
+# frozen_string_literal: true
+
 module Hungrytable
+  # HTTP GET request handler
   class GetRequest < Request
+    # Default timeout for HTTP requests (in seconds)
+    DEFAULT_TIMEOUT = 30
+
     private
-    def auth_header
-      Hungrytable::RequestHeader.new(:get, @uri, {}, {})
-    end
 
     def make_request
-      Curl::Easy.perform(@uri) do |curl|
-        curl.headers['Authorization'] = auth_header
-      end
+      response = HTTP
+                 .timeout(DEFAULT_TIMEOUT)
+                 .headers('Authorization' => auth_header)
+                 .get(uri)
+
+      handle_http_errors(response)
+    rescue HTTP::Error => e
+      raise HTTPError, "HTTP request failed: #{e.message}"
     end
 
+    def auth_header
+      RequestHeader.new(:get, uri, {}, {}).to_s
+    end
   end
 end

@@ -1,46 +1,59 @@
+# frozen_string_literal: true
+
 module Hungrytable
+  # Represents a restaurant and its details from the OpenTable API
   class Restaurant
     include RequestExtensions
 
-    def initialize restaurant_id, opts={}
-      @requester     = opts[:requester] || GetRequest
+    # Attributes that map directly to API response fields
+    ATTRIBUTES = %i[
+      address
+      city
+      error_ID
+      error_message
+      image_link
+      latitude
+      longitude
+      metro_name
+      neighborhood_name
+      parking
+      parking_details
+      phone
+      postal_code
+      price_range
+      primary_food_type
+      restaurant_description
+      restaurant_ID
+      restaurant_name
+      state
+      url
+    ].freeze
+
+    attr_reader :restaurant_id
+
+    def initialize(restaurant_id, opts = {})
+      @requester = opts[:requester] || GetRequest
       @restaurant_id = restaurant_id
     end
 
+    # Alias for consistency
     def id
       @restaurant_id
     end
 
+    # Check if the restaurant query was valid
+    # @return [Boolean] true if no errors
     def valid?
-      error_ID == "0"
+      error_ID.to_s == '0'
     end
 
-    def method_missing meth, *args, &blk
-      if %w(
-            address
-            city
-            error_ID
-            error_message
-            image_link
-            latitude
-            longitude
-            metro_name
-            neighborhood_name
-            parking
-            parking_details
-            phone
-            postal_code
-            price_range
-            primary_food_type
-            restaurant_description
-            restaurant_ID
-            restaurant_name
-            state
-            url
-          ).map(&:to_sym).include?(meth)
-        return details["ns:#{meth.to_s.camelize.gsub("Id","ID")}"]
+    # Dynamically define getter methods for all attributes
+    ATTRIBUTES.each do |attr|
+      define_method(attr) do
+        # Convert Ruby snake_case to API camelCase, handling special case of ID
+        api_key = "ns:#{attr.to_s.camelize.gsub('Id', 'ID')}"
+        details[api_key]
       end
-      super
     end
 
     private
@@ -49,10 +62,9 @@ module Hungrytable
       "/restaurant/?pid=#{Config.partner_id}&rid=#{id}"
     end
 
-    # @return [Hash]
+    # @return [Hash] restaurant details from API response
     def details
-      request.parsed_response["RestaurantDetailsResults"]
+      @details ||= request.parsed_response['RestaurantDetailsResults'] || {}
     end
-
   end
 end

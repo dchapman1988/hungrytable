@@ -1,0 +1,61 @@
+plugins:
+  - rubocop-minitest
+  - rubocop-rake
+
+AllCops:
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'bin/**/*'
+
+# Prefer double quotes for consistency
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# Allow longer line lengths for readability
+Layout/LineLength:
+  Max: 120
+
+# Documentation is helpful but not required for every class
+Style/Documentation:
+  Enabled: false
+
+# Allow both compact and expanded module/class nesting
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Prefer modern Hash syntax
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
+# Allow empty methods without body
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+# Metrics
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - 'test/**/*'
+
+Metrics/ClassLength:
+  Max: 100
+  Exclude:
+    - 'test/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+    - '*.gemspec'
+    - 'Rakefile'
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - 'test/**/*'
+
+# Minitest
+Minitest/MultipleAssertions:
+  Max: 15
